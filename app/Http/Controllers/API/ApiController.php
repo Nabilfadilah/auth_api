@@ -99,19 +99,19 @@ class ApiController extends Controller
     }
 
     // profile 
-    // public function profile()
-    // {
-    //     // Profile Detail 
-    //     $userData = auth()->user();
+    public function profile()
+    {
+        // Profile Detail 
+        $userData = auth()->user();
 
-    //     // Return Json Response
-    //     return response()->json([
-    //         'status' => true,
-    //         'message' => 'Profile Info',
-    //         'data' => $userData,
-    //         'id' => auth()->user()->id,
-    //     ], 200);
-    // }
+        // Return Json Response
+        return response()->json([
+            'status' => true,
+            'message' => 'Profile Info',
+            'data' => $userData,
+            'id' => auth()->user()->id,
+        ], 200);
+    }
 
     // logout
     // public function logout()
