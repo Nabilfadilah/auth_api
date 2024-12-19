@@ -55,47 +55,48 @@ class ApiController extends Controller
     }
 
     // login 
-    // public function login(Request $request)
-    // {
-    //     try {
-    //         $validateuser = Validator::make($request->all(),
-    //             [
-    //                 'email' => 'required|email',
-    //                 'password' => 'required',
-    //             ]
-    //         );
+    public function login(Request $request)
+    {
+        try {
+            $validateuser = Validator::make(
+                $request->all(),
+                [
+                    'email' => 'required|email',
+                    'password' => 'required',
+                ]
+            );
 
-    //         if ($validateuser->fails()) {
-    //             return response()->json([
-    //                 'status' => false,
-    //                 'message' => 'validation error',
-    //                 'errors' => $validateuser->errors()
-    //             ], 401);
-    //         }
+            if ($validateuser->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'validation error',
+                    'errors' => $validateuser->errors()
+                ], 401);
+            }
 
-    //         if (!Auth::attempt(($request->only(['email','password'])))) {
-    //             return response()->json(['status' => false,
-    //                 'status' => false,
-    //                 'message' => 'Something went really wrong!',
-    //             ],401);
-    //         }
+            if (!Auth::attempt(($request->only(['email', 'password'])))) {
+                return response()->json([
+                    'status' => false,
+                    'status' => false,
+                    'message' => 'Something went really wrong!',
+                ], 401);
+            }
 
-    //         $user = User::where('email', $request->email)->first();
+            $user = User::where('email', $request->email)->first();
 
-    //         return response()->json([
-    //             'status' => true,
-    //             'message' => 'Succesfully login',
-    //             'token' => $user->createToken('API TOKEN')->plainTextToken
-    //         ], 200);
-
-    //     } catch (\Throwable $th) {
-    //         // Return Json Response
-    //         return response()->json([
-    //             'status' => false,
-    //             'message' => $th->getMessage(),
-    //         ], 500);
-    //     }
-    // }
+            return response()->json([
+                'status' => true,
+                'message' => 'Succesfully login',
+                'token' => $user->createToken('API TOKEN')->plainTextToken
+            ], 200);
+        } catch (\Throwable $th) {
+            // Return Json Response
+            return response()->json([
+                'status' => false,
+                'message' => $th->getMessage(),
+            ], 500);
+        }
+    }
 
     // profile 
     // public function profile()
